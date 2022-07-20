@@ -1,17 +1,37 @@
 from turtle import Turtle,Screen
+import time
+from snake import Snake
+from food import Food
+
 
 screen = Screen()
 screen.bgcolor("black")
 screen.setup(width=400, height=400)
-xv=0
-for i in range(10):
-    tim = Turtle()
-    tim.penup()
-    tim.shape("square")
-    tim.color("white")
-    xv-=20
-    tim.setposition(xv,0)
+screen.title("My Snake Game")
+screen.tracer(0)
 
+
+
+snake = Snake()
+food= Food()
+
+screen.listen()
+screen.onkey(snake.up, "Up")
+screen.onkey(snake.down, "Down")
+screen.onkey(snake.left, "Left")
+screen.onkey(snake.Right, "Right")
+
+
+
+game_is_on=True
+while game_is_on:
+    screen.update()
+    time.sleep(0.1)
+    snake.move()
+
+    # Detect collision of food
+    if snake.head.distance(food)<15:
+        food.refresh()
 
 
 screen.exitonclick()
